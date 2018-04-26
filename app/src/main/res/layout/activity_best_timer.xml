@@ -32,7 +32,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="147dp"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="2">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -61,6 +61,34 @@
                 android:layout_gravity="center"
                 android:text="@string/timer_defaultPace"
                 android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_timer_beatTimeLabel"
+                style="@style/TimerTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_timer_pace"
+                android:layout_gravity="center"
+                android:text="@string/timer_beatTimeLabel"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textView_timer_beatTime"
+                style="@style/TimerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_timer_beatTimeLabel"
+                android:layout_gravity="center"
+                android:text="@string/timer_defaultTime"
+                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 
