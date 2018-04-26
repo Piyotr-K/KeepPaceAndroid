@@ -413,6 +413,7 @@ public class TimerActivity extends AppCompatActivity {
         final LinearLayout markers = (LinearLayout) findViewById(R.id.linearLayout_timer_markers);
         for (int id = 0; id <= race.getMarkers() + 1; id++) {
             final Button markerBtn = new Button(this);
+            markerBtn.setText(race.getMarkerName(id));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(btn_size, btn_size);
             params.setMargins(0, 0, BTN_MARGIN, 0);
             markerBtn.setLayoutParams(params);
@@ -423,31 +424,34 @@ public class TimerActivity extends AppCompatActivity {
                 markerBtn.setEnabled(false);
             } else {
                 markerBtn.setId(id);
-                switch (id) {
-                    case 1:
-                        markerBtn.setBackground(getResources().getDrawable(R.drawable.two));
-                        break;
-                    case 2:
-                        markerBtn.setBackground(getResources().getDrawable(R.drawable.three));
-                        break;
-                    case 3:
-                        markerBtn.setBackground(getResources().getDrawable(R.drawable.four));
-                        break;
-                    case 4:
-                        markerBtn.setBackground(getResources().getDrawable(R.drawable.five));
-                        break;
-                    case 5:
-                        markerBtn.setBackground(getResources().getDrawable(R.drawable.six));
-                        break;
-                    case 6:
-                        markerBtn.setBackground(getResources().getDrawable(R.drawable.seven));
-                        break;
-                    case 7:
-                        markerBtn.setBackground(getResources().getDrawable(R.drawable.eight));
-                        break;
-                    default:
-                        markerBtn.setBackground(getResources().getDrawable(R.drawable.nine));
-                }
+                markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
+                markerBtn.setTextColor(Color.WHITE);
+                markerBtn.setTextSize(30);
+//                switch (id) {
+//                    case 1:
+//                        markerBtn.setBackground(getResources().getDrawable(R.drawable.two));
+//                        break;
+//                    case 2:
+//                        markerBtn.setBackground(getResources().getDrawable(R.drawable.three));
+//                        break;
+//                    case 3:
+//                        markerBtn.setBackground(getResources().getDrawable(R.drawable.four));
+//                        break;
+//                    case 4:
+//                        markerBtn.setBackground(getResources().getDrawable(R.drawable.five));
+//                        break;
+//                    case 5:
+//                        markerBtn.setBackground(getResources().getDrawable(R.drawable.six));
+//                        break;
+//                    case 6:
+//                        markerBtn.setBackground(getResources().getDrawable(R.drawable.seven));
+//                        break;
+//                    case 7:
+//                        markerBtn.setBackground(getResources().getDrawable(R.drawable.eight));
+//                        break;
+//                    default:
+//                        markerBtn.setBackground(getResources().getDrawable(R.drawable.nine));
+//                }
             }
 
             markerBtn.setOnClickListener(new View.OnClickListener() {
