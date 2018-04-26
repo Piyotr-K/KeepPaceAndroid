@@ -86,7 +86,11 @@ public class TimerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timer);
+        if(getIntent().getBooleanExtra("beatTime", false) == false) {
+            setContentView(R.layout.activity_timer);
+        } else {
+            setContentView(R.layout.activity_best_timer);
+        }
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
