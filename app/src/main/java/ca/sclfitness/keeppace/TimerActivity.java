@@ -14,7 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
@@ -33,10 +33,8 @@ import java.util.Locale;
 import ca.sclfitness.keeppace.Dao.RaceDao;
 import ca.sclfitness.keeppace.Dao.RecordDao;
 import ca.sclfitness.keeppace.model.FullCrunch;
-import ca.sclfitness.keeppace.model.GrouseGrind;
 import ca.sclfitness.keeppace.model.Race;
 import ca.sclfitness.keeppace.model.Record;
-import ca.sclfitness.keeppace.model.StairCrunch;
 
 import static android.view.View.GONE;
 
@@ -70,6 +68,16 @@ public class TimerActivity extends AppCompatActivity {
 
     // button marker size
     private int btn_size;
+
+    // raceId of current view
+    private int raceId;
+
+    // array of the start drawable locations
+    private int[] startBackgroundArray = {0, 0, 0, 0, R.drawable.grindstartblue, R.drawable.start457blue, R.drawable.start437blue};
+
+    // array of the finish drawable locations
+    private int[] finishBackgroundArray = {0, 0, 0, 0, R.drawable.grindfinishblue, R.drawable.finish457blue, R.drawable.finish437blue};
+
 
     // Timer thread
     private Runnable runnable = new Runnable() {
@@ -113,15 +121,13 @@ public class TimerActivity extends AppCompatActivity {
         saveBtn = (Button) findViewById(R.id.button_timer_save);
         scrollView = (HorizontalScrollView) findViewById(R.id.scrollView_timer_markers);
 
-
-        //scrollView.setScroll
-
         Intent intent = getIntent();
         beatTime = intent.getBooleanExtra("beatTime", false);
         String raceName = intent.getStringExtra("raceType");
 
         // setup race
         this.raceSetup(raceName);
+        raceId = race.getId() - 1;
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getResources().getString(R.string.app_title) + " - " + raceName);
         }
@@ -136,7 +142,8 @@ public class TimerActivity extends AppCompatActivity {
             currentSpeedView.append(" " + getString(R.string.pace_km_per_hr));
         }
 
-
+        // make start marker, based on race
+        this.makeStartMarker();
 
         // make markers scroll view based on the race
         if (race.getName().equals(FullCrunch.FULL_CRUNCH)) {
@@ -153,20 +160,6 @@ public class TimerActivity extends AppCompatActivity {
                 beatTimeView.setText(race.timeTextFormat(record.getTime()));
             }
         }
-
-        // start 457 timer image change
-        startBtn.setText("");
-        if (race.getName().equals(FullCrunch.FULL_CRUNCH)) {
-            startBtn.setBackground(getResources().getDrawable(R.drawable.start457blue));
-        } else if (race.getName().equals(StairCrunch.STAIR_CRUNCH)) {
-            startBtn.setBackground(getResources().getDrawable(R.drawable.start437blue));
-        } else if (race.getName().equals(GrouseGrind.GROUSE_GRIND)) {
-            startBtn.setBackground(getResources().getDrawable(R.drawable.grindstartblue));
-        }
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(btn_size, btn_size);
-        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        startBtn.setLayoutParams(params);
 
         // timer handler
         handler = new Handler();
@@ -233,6 +226,13 @@ public class TimerActivity extends AppCompatActivity {
         if (isFinished) {
             pauseResumeBtn.setEnabled(false);
             pauseResumeBtn.setVisibility(View.INVISIBLE);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(btn_size, btn_size);
+            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            int sizeInDP = 10;
+            int marginInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sizeInDP, getResources().getDisplayMetrics());
+            params.setMargins(0, 0, 0, marginInDp);
+            saveBtn.setLayoutParams(params);
             saveBtn.setVisibility(View.VISIBLE);
             saveBtn.setEnabled(true);
         }
@@ -393,6 +393,40 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     /**
+     * Handle special start marker cases.
+     */
+    private void makeStartMarker() {
+        // start 457 timer image change
+
+        // within range of existing images
+        if (raceId >= 4 && raceId <= 6)
+        {
+            startBtn.setText(""); // Clear start button text to prevent duplication
+            startBtn.setBackground(getResources().getDrawable(startBackgroundArray[raceId]));
+        }
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(btn_size, btn_size);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        int sizeInDP = 10;
+        int marginInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sizeInDP, getResources().getDisplayMetrics());
+        params.setMargins(0, 0, 0, marginInDp);
+        startBtn.setLayoutParams(params);
+    }
+
+    /**
+     * Handle special finish marker
+     * @param markerBtn - button object
+     */
+    private void makeFinishMaker(Button markerBtn) {
+        if (raceId >= 4 && raceId <= 6) {
+            markerBtn.setText("");
+            markerBtn.setBackground(getResources().getDrawable(finishBackgroundArray[raceId]));
+        }
+    }
+
+
+    /**
      * Create markers
      */
     private void makeMarkers() {
@@ -404,25 +438,21 @@ public class TimerActivity extends AppCompatActivity {
             params.setMargins(0, 0, BTN_MARGIN, 0);
             markerBtn.setLayoutParams(params);
             if (id == 0 || id == race.getMarkers() + 1) {
-                /*For general buttons, check if the button was FINISH. Do X if it it was*/
-                if (race.getMarkerName(id) != "FINISH") {
-                    markerBtn.setLayoutParams(new LinearLayout.LayoutParams(btn_size, btn_size));
-                    markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
-                    markerBtn.setVisibility(View.INVISIBLE);
-                    markerBtn.setEnabled(false);
-                } else {
-                    markerBtn.setText("");
-                    markerBtn.setLayoutParams(new LinearLayout.LayoutParams(btn_size, btn_size));
-                    markerBtn.setBackground(getResources().getDrawable(R.drawable.finish437blue));
-                    markerBtn.setVisibility(View.INVISIBLE);
-                    markerBtn.setEnabled(false);
-                }
+                markerBtn.setLayoutParams(new LinearLayout.LayoutParams(btn_size, btn_size));
+                markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
+                markerBtn.setVisibility(View.INVISIBLE);
+                markerBtn.setEnabled(false);
             } else {
                 markerBtn.setId(id);
                 markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
                 markerBtn.setTextColor(Color.WHITE);
                 markerBtn.setTextSize(30);
             }
+
+            if(race.getMarkerName(id).equalsIgnoreCase("FINISH")) {
+                makeFinishMaker(markerBtn);
+            }
+
             markerBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     onClickMarker(markerBtn.getId());
@@ -454,9 +484,6 @@ public class TimerActivity extends AppCompatActivity {
                 markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
                 markerBtn.setTextColor(Color.WHITE);
                 markerBtn.setTextSize(30);
-                if(id == 10) {
-                    markerBtn.setBackground(getResources().getDrawable(R.drawable.finish457blue));
-                }
 //                switch (id) {
 //                    case 1:
 //                        markerBtn.setBackground(getResources().getDrawable(R.drawable.two));
@@ -482,6 +509,10 @@ public class TimerActivity extends AppCompatActivity {
 //                    default:
 //                        markerBtn.setBackground(getResources().getDrawable(R.drawable.nine));
 //                }
+            }
+
+            if(race.getMarkerName(id).equalsIgnoreCase("FINISH")) {
+                makeFinishMaker(markerBtn);
             }
 
             markerBtn.setOnClickListener(new View.OnClickListener() {
