@@ -14,10 +14,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +33,10 @@ import java.util.Locale;
 import ca.sclfitness.keeppace.Dao.RaceDao;
 import ca.sclfitness.keeppace.Dao.RecordDao;
 import ca.sclfitness.keeppace.model.FullCrunch;
+import ca.sclfitness.keeppace.model.GrouseGrind;
 import ca.sclfitness.keeppace.model.Race;
 import ca.sclfitness.keeppace.model.Record;
+import ca.sclfitness.keeppace.model.StairCrunch;
 
 import static android.view.View.GONE;
 
@@ -149,6 +153,20 @@ public class TimerActivity extends AppCompatActivity {
                 beatTimeView.setText(race.timeTextFormat(record.getTime()));
             }
         }
+
+        // start 457 timer image change
+        startBtn.setText("");
+        if (race.getName().equals(FullCrunch.FULL_CRUNCH)) {
+            startBtn.setBackground(getResources().getDrawable(R.drawable.start457blue));
+        } else if (race.getName().equals(StairCrunch.STAIR_CRUNCH)) {
+            startBtn.setBackground(getResources().getDrawable(R.drawable.start437blue));
+        } else if (race.getName().equals(GrouseGrind.GROUSE_GRIND)) {
+            startBtn.setBackground(getResources().getDrawable(R.drawable.grindstartblue));
+        }
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(btn_size, btn_size);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        startBtn.setLayoutParams(params);
 
         // timer handler
         handler = new Handler();
@@ -385,11 +403,20 @@ public class TimerActivity extends AppCompatActivity {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(btn_size, btn_size);
             params.setMargins(0, 0, BTN_MARGIN, 0);
             markerBtn.setLayoutParams(params);
-            if (id == 0 || id == (race.getMarkers() + 1)) {
-                markerBtn.setLayoutParams(new LinearLayout.LayoutParams(btn_size, btn_size));
-                markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
-                markerBtn.setVisibility(View.INVISIBLE);
-                markerBtn.setEnabled(false);
+            if (id == 0 || id == race.getMarkers() + 1) {
+                /*For general buttons, check if the button was FINISH. Do X if it it was*/
+                if (race.getMarkerName(id) != "FINISH") {
+                    markerBtn.setLayoutParams(new LinearLayout.LayoutParams(btn_size, btn_size));
+                    markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
+                    markerBtn.setVisibility(View.INVISIBLE);
+                    markerBtn.setEnabled(false);
+                } else {
+                    markerBtn.setText("");
+                    markerBtn.setLayoutParams(new LinearLayout.LayoutParams(btn_size, btn_size));
+                    markerBtn.setBackground(getResources().getDrawable(R.drawable.finish437blue));
+                    markerBtn.setVisibility(View.INVISIBLE);
+                    markerBtn.setEnabled(false);
+                }
             } else {
                 markerBtn.setId(id);
                 markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
@@ -427,6 +454,9 @@ public class TimerActivity extends AppCompatActivity {
                 markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
                 markerBtn.setTextColor(Color.WHITE);
                 markerBtn.setTextSize(30);
+                if(id == 10) {
+                    markerBtn.setBackground(getResources().getDrawable(R.drawable.finish457blue));
+                }
 //                switch (id) {
 //                    case 1:
 //                        markerBtn.setBackground(getResources().getDrawable(R.drawable.two));
