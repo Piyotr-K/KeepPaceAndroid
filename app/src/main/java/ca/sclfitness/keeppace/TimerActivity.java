@@ -71,6 +71,10 @@ public class TimerActivity extends AppCompatActivity {
     // button marker size
     private int btn_size;
 
+    // Array of the drawable locations
+    private int raceId;
+    private int[] backgroundArray = {0, 0, 0, 0, R.drawable.grindstartblue, R.drawable.start457blue, R.drawable.start437blue};
+
     // Timer thread
     private Runnable runnable = new Runnable() {
         @Override
@@ -113,15 +117,13 @@ public class TimerActivity extends AppCompatActivity {
         saveBtn = (Button) findViewById(R.id.button_timer_save);
         scrollView = (HorizontalScrollView) findViewById(R.id.scrollView_timer_markers);
 
-
-        //scrollView.setScroll
-
         Intent intent = getIntent();
         beatTime = intent.getBooleanExtra("beatTime", false);
         String raceName = intent.getStringExtra("raceType");
 
         // setup race
         this.raceSetup(raceName);
+        raceId = race.getId() - 1;
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getResources().getString(R.string.app_title) + " - " + raceName);
         }
@@ -136,7 +138,8 @@ public class TimerActivity extends AppCompatActivity {
             currentSpeedView.append(" " + getString(R.string.pace_km_per_hr));
         }
 
-
+        // make start marker, based on race
+        this.makeStartMarker();
 
         // make markers scroll view based on the race
         if (race.getName().equals(FullCrunch.FULL_CRUNCH)) {
@@ -153,20 +156,6 @@ public class TimerActivity extends AppCompatActivity {
                 beatTimeView.setText(race.timeTextFormat(record.getTime()));
             }
         }
-
-        // start 457 timer image change
-        startBtn.setText("");
-        if (race.getName().equals(FullCrunch.FULL_CRUNCH)) {
-            startBtn.setBackground(getResources().getDrawable(R.drawable.start457blue));
-        } else if (race.getName().equals(StairCrunch.STAIR_CRUNCH)) {
-            startBtn.setBackground(getResources().getDrawable(R.drawable.start437blue));
-        } else if (race.getName().equals(GrouseGrind.GROUSE_GRIND)) {
-            startBtn.setBackground(getResources().getDrawable(R.drawable.grindstartblue));
-        }
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(btn_size, btn_size);
-        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        startBtn.setLayoutParams(params);
 
         // timer handler
         handler = new Handler();
@@ -393,6 +382,24 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     /**
+     * Handle special start marker cases.
+     */
+    private void makeStartMarker() {
+        // start 457 timer image change
+
+        // within range of existing images
+        if (raceId >= 4 && raceId <= 6)
+        {
+            startBtn.setText(""); // Clear start button text to prevent duplication
+            startBtn.setBackground(getResources().getDrawable(backgroundArray[raceId]));
+        }
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(btn_size, btn_size);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        startBtn.setLayoutParams(params);
+    }
+
+    /**
      * Create markers
      */
     private void makeMarkers() {
@@ -404,13 +411,14 @@ public class TimerActivity extends AppCompatActivity {
             params.setMargins(0, 0, BTN_MARGIN, 0);
             markerBtn.setLayoutParams(params);
             if (id == 0 || id == race.getMarkers() + 1) {
-                /*For general buttons, check if the button was FINISH. Do X if it it was*/
+                /* For general buttons, check if the button was FINISH. Do X if it it was */
                 if (race.getMarkerName(id) != "FINISH") {
                     markerBtn.setLayoutParams(new LinearLayout.LayoutParams(btn_size, btn_size));
                     markerBtn.setBackground(getResources().getDrawable(R.drawable.bottom_button));
                     markerBtn.setVisibility(View.INVISIBLE);
                     markerBtn.setEnabled(false);
                 } else {
+
                     markerBtn.setText("");
                     markerBtn.setLayoutParams(new LinearLayout.LayoutParams(btn_size, btn_size));
                     markerBtn.setBackground(getResources().getDrawable(R.drawable.finish437blue));
