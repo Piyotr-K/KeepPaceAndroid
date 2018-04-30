@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/racingsansoneregular.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
         setContentView(R.layout.activity_main);
         startActivity(new Intent(this, SplashActivity.class));
     }
