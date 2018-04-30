@@ -27,7 +27,6 @@
         android:text="@string/main_crunchPace" />
 
 
-
     <Button
         android:id="@+id/button_main_racePace"
         style="@style/ButtonLayout"
