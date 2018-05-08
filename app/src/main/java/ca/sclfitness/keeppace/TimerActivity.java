@@ -198,7 +198,7 @@ public class TimerActivity extends AppCompatActivity {
         if (!isFinished) {
             startTime = SystemClock.uptimeMillis();
             handler.postDelayed(runnable, 0);
-            startBtn.setVisibility(GONE);
+            startBtn.setVisibility(View.INVISIBLE);
             isPaused = false;
 
             String mode = sharedPreferences.getString(getString(R.string.key_mode), "1");
