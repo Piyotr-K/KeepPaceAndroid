@@ -28,10 +28,10 @@
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="98dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView_timer_currentTime"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="147dp"
         android:orientation="horizontal"
+        android:id="@+id/linearLayout_pace"
         android:weightSum="1">
 
         <LinearLayout
@@ -67,16 +67,17 @@
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/linearLayout_pace"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:weightSum="3">
 
         <Button
-            android:layout_gravity="center"
             android:id="@+id/button_timer_pauseResume"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_toStartOf="@+id/textView_timer_currentTimeLabel"
             android:layout_weight="1"
             android:background="@color/KeepPaceBlue"
@@ -92,11 +93,11 @@
             android:layout_weight="1"></LinearLayout>
 
         <Button
-            android:layout_gravity="center"
             android:id="@+id/button_timer_reset"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@color/KeepPaceBlue"
             android:enabled="false"
