@@ -31,12 +31,14 @@
     <!-- TimerActivity text -->
     <style name="TimerText">
         <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
     <!-- TimerActivity label -->
     <style name="TimerTextLabel">
         <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
