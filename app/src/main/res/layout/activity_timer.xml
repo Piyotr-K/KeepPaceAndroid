@@ -15,7 +15,6 @@
         android:layout_alignBottom="@id/linearLayout_startBtnTop"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
         android:weightSum="6">
 
         <TextView
@@ -128,12 +127,13 @@
         <TextView
             android:id="@+id/textView_timer_estimatedTime"
             style="@style/TimerText"
+            android:includeFontPadding="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/timer_defaultTime"
             android:textSize="40sp"
             android:layout_weight="1"
-            android:gravity="center_vertical"/>
+            android:gravity="center_horizontal"/>
     </LinearLayout>
 
     <LinearLayout
