@@ -128,9 +128,9 @@ public class TimerActivity extends AppCompatActivity {
         // setup race
         this.raceSetup(raceName);
         raceId = race.getId() - 1;
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getResources().getString(R.string.app_title) + " - " + raceName);
-        }
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setTitle(getResources().getString(R.string.app_title) + " - " + raceName);
+//        }
 
         // Get unit preference
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

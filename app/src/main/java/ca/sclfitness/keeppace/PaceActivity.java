@@ -2,9 +2,11 @@ package ca.sclfitness.keeppace;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class PaceActivity extends AppCompatActivity {
 
@@ -15,6 +17,12 @@ public class PaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pace);
 
+        if (getSupportActionBar() != null)
+        {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.intermediate_menu);
+        }
+
         final Button raceTypeBtn = (Button) findViewById(R.id.btn_pace_paceType);
         Intent i = getIntent();
         paceType = i.getIntExtra("type", -1);
@@ -23,16 +31,20 @@ public class PaceActivity extends AppCompatActivity {
             case 0:
                 // Grind Pace
                 raceTypeBtn.setText(R.string.pace_grind);
+                ((TextView) findViewById(R.id.textView_transition_title)).setText("Grind Pace");
                 break;
             case 1:
                 // Race Pace
                 raceTypeBtn.setText(R.string.pace_race);
+                ((TextView) findViewById(R.id.textView_transition_title)).setText("Race Pace");
                 break;
             case 2:
                 raceTypeBtn.setText(getString(R.string.pace_crunch));
+                ((TextView) findViewById(R.id.textView_transition_title)).setText("457 Steps");
                 break;
             case 3:
                 raceTypeBtn.setText(getString(R.string.pace_steps));
+                ((TextView) findViewById(R.id.textView_transition_title)).setText("437 Steps");
                 break;
             default:
                 System.err.println("passing error code " + paceType);
