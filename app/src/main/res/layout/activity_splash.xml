@@ -7,9 +7,15 @@
     android:background="@color/KeepPaceBlue"
     tools:context="ca.sclfitness.keeppace.SplashActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/splash_icon" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/splash_icon"
+            android:layout_weight="90"/>
+    </LinearLayout>
 </RelativeLayout>
