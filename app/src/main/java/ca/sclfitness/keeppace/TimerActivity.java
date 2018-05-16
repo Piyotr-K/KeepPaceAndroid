@@ -39,6 +39,7 @@ import ca.sclfitness.keeppace.model.Record;
 import static android.view.View.GONE;
 
 public class TimerActivity extends AppCompatActivity {
+
     private static final String TAG = TimerActivity.class.getSimpleName();
 
     // Pause check

@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putBoolean("firstRun", false);
                             editor.apply();
-                            Intent i = new Intent(SplashActivity.this, GetStartedActivity.class); //Activity to be     launched For the First time
+                            Intent i = new Intent(SplashActivity.this, GetStartedActivity.class); //Activity to be launched For the First time
                             startActivity(i);
                             finish();
                         }

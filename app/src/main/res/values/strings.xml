@@ -53,8 +53,8 @@
     <string name="main_title">KEEP PACE</string>
     <string name="main_grindPace">GRIND PACE</string>
     <string name="main_crunchPace">CRUNCH PACE</string>
-    <string name="main_fullCrunch">457 Steps</string>
-    <string name="main_stairCrunch">437 Steps</string>
+    <string name="main_stairCrunch">437 Steps (Left)</string>
+    <string name="main_fullCrunch">457 Steps (Right)</string>
     <string name="main_racePace">RACE PACE</string>
 
     <!-- PaceActivity -->
@@ -63,6 +63,11 @@
     <string name="pace_crunch">JUST CRUNCH</string>
     <string name="pace_steps">JUST STEP</string>
     <string name="pace_race">JUST RACE</string>
+    <string name="title_stairCrunch">437 Steps (Left)</string>
+    <string name="title_fullCrunch">457 Steps (Right)</string>
+    <string name="title_race">Race</string>
+    <string name="title_grind">Grouse Grind</string>
+    <string name="title_crunch">Coquitlam Crunch</string>
 
     <!-- RaceActivity -->
     <string name="race_fiveK">5 K</string>

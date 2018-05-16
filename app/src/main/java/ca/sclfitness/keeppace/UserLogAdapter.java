@@ -2,6 +2,7 @@ package ca.sclfitness.keeppace;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ public class UserLogAdapter extends ArrayAdapter<Race> {
 
     private Context mContext;
 
+    private Typeface font = Typeface.create("sans-serif", Typeface.NORMAL);
+
     public UserLogAdapter(Context context, List<Race> races) {
         super(context, 0, races);
         mContext = context;
@@ -39,6 +42,10 @@ public class UserLogAdapter extends ArrayAdapter<Race> {
         final TextView nameView = (TextView) convertView.findViewById(R.id.textView_raceList_name);
         final TextView paceView = (TextView) convertView.findViewById(R.id.textView_raceList_pace);
         final TextView bestTimeView = (TextView) convertView.findViewById(R.id.textView_raceList_bestTime);
+
+        nameView.setTypeface(font);
+        paceView.setTypeface(font);
+        bestTimeView.setTypeface(font);
 
         if (race != null) {
             nameView.setText(race.getName());

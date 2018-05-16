@@ -18,19 +18,19 @@ public class CrunchPaceActivity extends AppCompatActivity {
         {
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             getSupportActionBar().setCustomView(R.layout.intermediate_menu);
-            ((TextView) findViewById(R.id.textView_transition_title)).setText("Crunch Pace");
+            ((TextView) findViewById(R.id.textView_transition_title)).setText(R.string.title_crunch);
         }
-    }
-
-    public void onClickFullCrunch(View v) {
-        Intent i = new Intent(this, PaceActivity.class);
-        i.putExtra("type", 2);    // grind pace
-        startActivity(i);
     }
 
     public void onClickStairCrunch(View v) {
         Intent i = new Intent(this, PaceActivity.class);
-        i.putExtra("type", 3);    // crunch pace
+        i.putExtra("type", 2);    // crunch pace
+        startActivity(i);
+    }
+
+    public void onClickFullCrunch(View v) {
+        Intent i = new Intent(this, PaceActivity.class);
+        i.putExtra("type", 3);    // grind pace
         startActivity(i);
     }
 }
