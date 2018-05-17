@@ -334,8 +334,8 @@ public class TimerActivity extends AppCompatActivity {
     public void onClickSave(View v) {
 
         final AlertDialog alertDialog = new AlertDialog.Builder(TimerActivity.this).create();
-        alertDialog.setTitle("Saving Log");
-        alertDialog.setMessage("Would you like to save the race?");
+        alertDialog.setTitle("Activity Log");
+        alertDialog.setMessage("Would you like to save this race?");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -350,7 +350,7 @@ public class TimerActivity extends AppCompatActivity {
                 } else {
                     dialog.dismiss();
                     AlertDialog warnDialog = new AlertDialog.Builder(TimerActivity.this).create();
-                    warnDialog.setTitle("Saving Log");
+                    warnDialog.setTitle("Activity Log");
                     warnDialog.setMessage("This will overwrite your previous records. Would you like to continue?");
                     warnDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
                         @Override
