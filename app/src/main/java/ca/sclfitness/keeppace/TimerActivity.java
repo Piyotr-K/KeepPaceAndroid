@@ -285,7 +285,6 @@ public class TimerActivity extends AppCompatActivity {
             if (race.getUnit().equalsIgnoreCase("mile") && race.getName().equalsIgnoreCase("Half Marathon")) {
                 pace = pace / Race.MILE_CONVERSION;
             }
-
             if (race.getUnit().equalsIgnoreCase("mile") && race.getName().equalsIgnoreCase("Full Marathon")) {
                 pace = pace / Race.MILE_CONVERSION;
             }

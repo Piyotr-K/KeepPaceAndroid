@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickRace(View v) {
-        Intent racePaceIntent = new Intent(this, PaceActivity.class);
-        racePaceIntent.putExtra("type", 1);     // race pace
+        Intent racePaceIntent = new Intent(this, RaceActivity.class);
         startActivity(racePaceIntent);
     }
 }

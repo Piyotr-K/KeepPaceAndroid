@@ -37,17 +37,34 @@ public class PaceActivity extends AppCompatActivity {
                 titleBarTv.setText(R.string.title_grind);
                 break;
             case 1:
-                // Race Pace
-                raceTypeBtn.setText(R.string.pace_race);
-                titleBarTv.setText(R.string.title_race);
-                break;
-            case 2:
+                // 437 Steps
                 raceTypeBtn.setText(getString(R.string.pace_steps));
                 titleBarTv.setText(R.string.main_stairCrunch);
                 break;
-            case 3:
+            case 2:
+                // 457 Steps
                 raceTypeBtn.setText(getString(R.string.pace_crunch));
                 titleBarTv.setText(R.string.main_fullCrunch);
+                break;
+            case 3:
+                // 5K Race
+                raceTypeBtn.setText(R.string.pace_race);
+                titleBarTv.setText(R.string.race_fiveK);
+                break;
+            case 4:
+                // 10K Race
+                raceTypeBtn.setText(R.string.pace_race);
+                titleBarTv.setText(R.string.race_tenK);
+                break;
+            case 5:
+                // Half Marathon
+                raceTypeBtn.setText(R.string.pace_race);
+                titleBarTv.setText(R.string.race_halfMarathon);
+                break;
+            case 6:
+                // Full Marathon
+                raceTypeBtn.setText(R.string.pace_race);
+                titleBarTv.setText(R.string.race_fullMarathon);
                 break;
             default:
                 System.err.println("passing error code " + paceType);
@@ -73,24 +90,34 @@ public class PaceActivity extends AppCompatActivity {
     private void beatTimeIntent(boolean beatTime) {
         Intent intent = null;
         if (paceType == 0) {
-            intent = new Intent(this, TimerActivity.class);
-            intent.putExtra("raceType", "Grouse Grind");
+            startTimerIntent("Grouse Grind", beatTime);
         } else if (paceType == 1) {
-            intent = new Intent(this, RaceActivity.class);
-        } else if (paceType == 2 ) {
-            intent = new Intent(this, TimerActivity.class);
-            intent.putExtra("raceType", "457 Steps");
+            startTimerIntent("457 Steps", beatTime);
+        } else if (paceType == 2) {
+            startTimerIntent("437 Steps", beatTime);
         } else if (paceType == 3) {
-            intent = new Intent(this, TimerActivity.class);
-            intent.putExtra("raceType", "437 Steps");
+            startTimerIntent("5K", beatTime);
+        } else if (paceType == 4) {
+            startTimerIntent("10K", beatTime);
+        } else if (paceType == 5) {
+            startTimerIntent("Half Marathon", beatTime);
+        } else if (paceType == 6) {
+            startTimerIntent("Full Marathon", beatTime);
         } else {
             System.err.println("passing error code " + paceType);
             finish();
         }
+    }
 
-        if (intent != null) {
-            intent.putExtra("beatTime", beatTime);
-            startActivity(intent);
-        }
+    /**
+     * Start timer activity and pass arguments for creating a race
+     *
+     * @param raceType - name of the race
+     */
+    private void startTimerIntent(String raceType, boolean beatBestTime) {
+        Intent timerIntent = new Intent(this, TimerActivity.class);
+        timerIntent.putExtra("raceType", raceType);
+        timerIntent.putExtra("beatTime", beatBestTime);
+        startActivity(timerIntent);
     }
 }

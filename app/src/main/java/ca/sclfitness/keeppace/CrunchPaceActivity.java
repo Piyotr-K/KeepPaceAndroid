@@ -24,13 +24,13 @@ public class CrunchPaceActivity extends AppCompatActivity {
 
     public void onClickStairCrunch(View v) {
         Intent i = new Intent(this, PaceActivity.class);
-        i.putExtra("type", 2);    // crunch pace
+        i.putExtra("type", 1);    // crunch pace
         startActivity(i);
     }
 
     public void onClickFullCrunch(View v) {
         Intent i = new Intent(this, PaceActivity.class);
-        i.putExtra("type", 3);    // grind pace
+        i.putExtra("type", 2);    // grind pace
         startActivity(i);
     }
 }
