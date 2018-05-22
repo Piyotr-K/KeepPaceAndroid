@@ -2,6 +2,7 @@ package ca.sclfitness.keeppace;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ public class RecordAdapter extends ArrayAdapter<Record> {
 
     private Context mContext;
 
+    private Typeface font = Typeface.create("sans-serif", Typeface.NORMAL);
+
     public RecordAdapter(Context context, List<Record> records) {
         super(context, 0, records);
         mContext = context;
@@ -42,6 +45,10 @@ public class RecordAdapter extends ArrayAdapter<Record> {
         final TextView dateText = (TextView) convertView.findViewById(R.id.textView_recordList_date);
         final TextView paceText = (TextView) convertView.findViewById(R.id.textView_recordList_pace);
         final TextView timeText = (TextView) convertView.findViewById(R.id.textView_recordList_time);
+
+        dateText.setTypeface(font);
+        paceText.setTypeface(font);
+        timeText.setTypeface(font);
 
         if (record != null) {
             dateText.setText(record.getDate());

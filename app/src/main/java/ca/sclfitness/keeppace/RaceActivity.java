@@ -18,40 +18,31 @@ public class RaceActivity extends AppCompatActivity {
         {
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             getSupportActionBar().setCustomView(R.layout.intermediate_menu);
-            ((TextView) findViewById(R.id.textView_transition_title)).setText("Just Race");
-
-            if (getIntent().getBooleanExtra("beatTime", false))
-            {
-                ((TextView) findViewById(R.id.textView_transition_title)).setText("Beat your best");
-            }
+            ((TextView) findViewById(R.id.textView_transition_title)).setText(R.string.title_race);
         }
     }
 
     public void onClickFive(View v) {
-        startTimerIntent("5K");
+        Intent i = new Intent(this, PaceActivity.class);
+        i.putExtra("type", 3);    // 5K Race
+        startActivity(i);
     }
 
     public void onClickTen(View v) {
-        startTimerIntent("10K");
+        Intent i = new Intent(this, PaceActivity.class);
+        i.putExtra("type", 4);    // 10K Race
+        startActivity(i);
     }
 
     public void onClickHalfMarathon(View v) {
-        startTimerIntent("Half Marathon");
+        Intent i = new Intent(this, PaceActivity.class);
+        i.putExtra("type", 5);    // Half Marathon
+        startActivity(i);
     }
 
     public void onClickFullMarathon(View v) {
-        startTimerIntent("Full Marathon");
-    }
-
-    /**
-     * Start timer activity and pass arguments for creating a race
-     *
-     * @param raceType - name of the race
-     */
-    private void startTimerIntent(String raceType) {
-        Intent timerIntent = new Intent(this, TimerActivity.class);
-        timerIntent.putExtra("raceType", raceType);
-        timerIntent.putExtra("beatTime", getIntent().getBooleanExtra("beatTime", false));
-        startActivity(timerIntent);
+        Intent i = new Intent(this, PaceActivity.class);
+        i.putExtra("type", 6);    // Full Marathon
+        startActivity(i);
     }
 }

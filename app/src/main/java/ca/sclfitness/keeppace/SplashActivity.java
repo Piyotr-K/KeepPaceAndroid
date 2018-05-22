@@ -11,7 +11,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         loadingBuffer();
     }
 
@@ -26,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putBoolean("firstRun", false);
                             editor.apply();
-                            Intent i = new Intent(SplashActivity.this, GetStartedActivity.class); //Activity to be     launched For the First time
+                            Intent i = new Intent(SplashActivity.this, GetStartedActivity.class); //Activity to be launched For the First time
                             startActivity(i);
                             finish();
                         }
